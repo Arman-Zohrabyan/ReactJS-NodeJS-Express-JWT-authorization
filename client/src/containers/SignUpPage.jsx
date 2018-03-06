@@ -16,8 +16,8 @@ export default class SignUpPage extends React.Component {
       user: {
         email: '',
         name: '',
-        password: ''
-      }
+        password: '',
+      },
     };
 
     this.processForm = this.processForm.bind(this);
@@ -50,7 +50,7 @@ export default class SignUpPage extends React.Component {
 
         // change the component-container state
         this.setState({
-          errors: {}
+          errors: {},
         });
 
         // set a message
@@ -65,7 +65,7 @@ export default class SignUpPage extends React.Component {
         errors.summary = xhr.response.message;
 
         this.setState({
-          errors
+          errors,
         });
       }
     });
@@ -83,7 +83,7 @@ export default class SignUpPage extends React.Component {
     user[field] = event.target.value;
 
     this.setState({
-      user
+      user,
     });
   }
 
@@ -104,5 +104,5 @@ export default class SignUpPage extends React.Component {
 }
 
 SignUpPage.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };

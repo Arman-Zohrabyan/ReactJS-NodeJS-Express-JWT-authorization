@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 export default class Dashboard extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+  constructor(props) {
+    super(props);
+  }
 
-	render() {
-		return(
+  render() {
+    return(
 		  <Card className="container">
 		    <CardTitle
 		      title="Dashboard"
@@ -16,10 +16,10 @@ export default class Dashboard extends React.Component {
 
 		    {this.props.secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{this.props.secretData}</CardText>}
 		  </Card>
-		);
-	}
+    );
+  }
 }
 
 Dashboard.propTypes = {
-  secretData: PropTypes.string.isRequired
+  secretData: PropTypes.string.isRequired,
 };

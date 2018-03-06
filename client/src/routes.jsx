@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 
 import Layout from './components/Layout.jsx';
@@ -16,17 +16,17 @@ export default (
         path="/"
         getComponent={
           (location, callback) => {
-            Auth.isUserAuthenticated() ? callback(null, DashboardPage) : callback(null, HomePage)
+            Auth.isUserAuthenticated() ? callback(null, DashboardPage) : callback(null, HomePage);
           }}
       />
       <Route
         path="/login"
-        onEnter={(nextState, replace) => {!Auth.isUserAuthenticated() || replace('/')}}
+        onEnter={(nextState, replace) => {!Auth.isUserAuthenticated() || replace('/');}}
         component={LoginPage}
       />
       <Route
         path="/signup"
-        onEnter={(nextState, replace) => {!Auth.isUserAuthenticated() || replace('/')}}
+        onEnter={(nextState, replace) => {!Auth.isUserAuthenticated() || replace('/');}}
         component={SignUpPage}
       />
       <Route
@@ -39,5 +39,5 @@ export default (
     </Route>
     <Route path="/*" component={ErrorPage} />
   </div>
-)
+);
 
