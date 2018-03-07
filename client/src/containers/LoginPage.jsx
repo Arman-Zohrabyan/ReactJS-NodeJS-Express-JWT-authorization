@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.jsx';
+import { browserHistory } from 'react-router';
 
 
 export default class LoginPage extends React.Component {
@@ -66,7 +67,7 @@ export default class LoginPage extends React.Component {
 
 
         // change the current URL to /
-        this.context.router.replace('/');
+        browserHistory.push('/');
       } else {
         // failure
 
@@ -113,7 +114,3 @@ export default class LoginPage extends React.Component {
   }
 
 }
-
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired,
-};

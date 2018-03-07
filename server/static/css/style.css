@@ -1,67 +1,62 @@
-body {
+body, html {
+  padding: 0;
   margin: 0;
-  font-size: 16px;
 }
 
-a {
+
+.cusomize-navbar.navbar {
+  background: white;
+  box-shadow: none;
+  border: none;
+}
+
+.cusomize-navbar .navbar-nav>li>a.navbar-link,
+.cusomize-navbar .navbar-brand {
   color: #00bcd4;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.4s;
 }
 
-a:hover {
+.cusomize-navbar .navbar-brand:hover,
+.cusomize-navbar .navbar-nav>li>a.navbar-link:hover {
   color: #1976d2;
 }
 
-.text-center {
-  text-align: center;
+.cusomize-navbar .navbar-brand {
+  font-size: 2em;
+}
+.cusomize-navbar .navbar-link {
+  font-size: 1.2em;
 }
 
-.top-bar {
-  padding: 10px 15px;
-  margin-bottom: 50px;
+.custom-border {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(255, 255, 255);
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  border-radius: 2px;
+  z-index: 1;
+  padding-bottom: 10px;
 }
-.top-bar::after {
-  content: '';
+
+.help-block {
+  height: 20px;
+}
+
+.btn-toolbar > .btn.custom-info-btn {
   display: block;
-  clear: both;
-}
-
-.top-bar-left {
-  float: left;
-  font-size: 1.5em;
-}
-
-.top-bar-right {
-  float: right;
-}
-
-.top-bar a,
-.nav a {
-  margin: 0 8px;
-}
-
-.container {
   margin: 0 auto;
-  text-align: center;
-  width: 700px;
+  float: none;
 }
 
-.card-heading {
-  padding: 16px;
+.padding-15-0 {
+  padding: 15px 0;
 }
 
-.field-line, .button-line {
-  padding: 16px;
-}
-
-.error-message {
-  padding: 0 16px;
-  color: tomato;
-}
-
-.success-message {
-  padding: 0 16px;
-  color: green;
+.margin-0 {
+  margin: 0;
 }

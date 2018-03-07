@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, IndexRedirect } from 'react-router';
+var React = require('react');
+import { Route } from 'react-router';
 
 import Layout from './components/Layout.jsx';
 import HomePage from './components/HomePage.jsx';

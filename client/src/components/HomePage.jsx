@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardTitle } from 'material-ui/Card';
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -8,9 +7,10 @@ export default class HomePage extends React.Component {
 
   render() {
     return(
-		  <Card className="container">
-		    <CardTitle title="React Application" subtitle="This is the home page." />
-		  </Card>
+		  <div className="container">
+        <span>This is the home page.</span>
+		    <span>React Application</span>
+		  </div>
     );
   }
 }

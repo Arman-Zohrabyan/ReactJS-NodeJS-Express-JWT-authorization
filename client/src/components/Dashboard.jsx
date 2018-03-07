@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import React from 'react';
 
 export default class Dashboard extends React.Component {
   constructor(props) {
@@ -8,18 +7,14 @@ export default class Dashboard extends React.Component {
 
   render() {
     return(
-		  <Card className="container">
-		    <CardTitle
+		  <div className="container">
+		    <span
 		      title="Dashboard"
 		      subtitle="You should get access to this page only after authentication."
 		    />
 
-		    {this.props.secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{this.props.secretData}</CardText>}
-		  </Card>
+		    {this.props.secretData && <span style={{ fontSize: '16px', color: 'green' }}>{this.props.secretData}</span>}
+		  </div>
     );
   }
 }
-
-Dashboard.propTypes = {
-  secretData: PropTypes.string.isRequired,
-};

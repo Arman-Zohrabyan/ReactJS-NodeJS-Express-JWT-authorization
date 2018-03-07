@@ -5,7 +5,7 @@ var WebpackNotifierPlugin = require('webpack-notifier');
 module.exports = {
   entry: path.join(__dirname, '/client/src/app.jsx'),
   output: {
-    path: path.join(__dirname, '/client/dist/js'),
+    path: path.join(__dirname, '/server/static/js'),
     filename: 'app.js',
   },
   module: {
@@ -32,7 +32,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackNotifierPlugin(),
+    // new WebpackNotifierPlugin(),
     new LiveReloadPlugin({ appendScriptTag: true }),
   ],
   watch: true

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
+import { browserHistory } from 'react-router';
 
 
 export default class SignUpPage extends React.Component {
@@ -7,8 +8,8 @@ export default class SignUpPage extends React.Component {
   /**
    * Class constructor.
    */
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     // set the initial component state
     this.state = {
@@ -57,7 +58,8 @@ export default class SignUpPage extends React.Component {
         localStorage.setItem('successMessage', xhr.response.message);
 
         // make a redirect
-        this.context.router.replace('/login');
+        browserHistory.push('/login');
+        // this.context.router.replace('/login');
       } else {
         // failure
 
@@ -102,7 +104,3 @@ export default class SignUpPage extends React.Component {
   }
 
 }
-
-SignUpPage.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
