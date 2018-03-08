@@ -10,7 +10,9 @@ body, html {
   border: none;
 }
 
-.cusomize-navbar .navbar-nav>li>a.navbar-link,
+.cusomize-navbar .navbar-nav>li>a,
+.cusomize-navbar .navbar-nav>li>a:focus,
+.cusomize-navbar .navbar-brand:focus,
 .cusomize-navbar .navbar-brand {
   color: #00bcd4;
   font-weight: bold;
@@ -19,7 +21,7 @@ body, html {
 }
 
 .cusomize-navbar .navbar-brand:hover,
-.cusomize-navbar .navbar-nav>li>a.navbar-link:hover {
+.cusomize-navbar .navbar-nav>li>a:hover {
   color: #1976d2;
 }
 
