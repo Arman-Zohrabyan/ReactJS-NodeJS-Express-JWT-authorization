@@ -1,25 +1,54 @@
-import React, { PropTypes } from 'react';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import React from 'react';
+import { Nav, NavItem } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 
 export default class Dashboard extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+  constructor(props) {
+    super(props);
 
-	render() {
-		return(
-		  <Card className="container">
-		    <CardTitle
-		      title="Dashboard"
-		      subtitle="You should get access to this page only after authentication."
-		    />
+    this.state = {
+      activeSection: props.location.pathname,
+    };
 
-		    {this.props.secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{this.props.secretData}</CardText>}
-		  </Card>
-		);
-	}
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({activeSection: nextProps.location.pathname});
+  }
+
+  redirect(link, event) {
+    event.preventDefault();
+    browserHistory.push(link);
+  }
+
+  handleSelect(eventKey) {
+    event.preventDefault();
+    this.setState({activeSection: eventKey});
+  }
+
+  render() {
+    return(
+      <div className="container">
+        <Nav bsStyle="tabs" activeKey={`${this.state.activeSection}`} onSelect={k => this.handleSelect(k)}>
+          <NavItem eventKey="/profile" onClick={this.redirect.bind(this, '/profile')}>
+            Profile
+          </NavItem>
+          <NavItem eventKey="/friends" onClick={this.redirect.bind(this, '/friends')}>
+            Friends
+          </NavItem>
+          <NavItem eventKey="/users" onClick={this.redirect.bind(this, '/users')}>
+            All Users
+          </NavItem>
+          <NavItem eventKey="/tape" onClick={this.redirect.bind(this, '/tape')}>
+            Tape
+          </NavItem>
+        </Nav>
+
+        <div className="dashboard-content">
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
 }
-
-Dashboard.propTypes = {
-  secretData: PropTypes.string.isRequired
-};

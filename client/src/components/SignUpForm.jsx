@@ -1,8 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, ButtonToolbar, Button } from 'react-bootstrap';
 
 export default class SignUpForm extends React.Component {
   constructor(props) {
@@ -10,58 +8,50 @@ export default class SignUpForm extends React.Component {
   }
 
   render() {
+    const {email: emailErrorMSG, password: passwordErrorMSG, name: nameErrorMSG} = this.props.errors;
     return(
-      <Card className="container">
-        <form action="/" onSubmit={this.props.onSubmit}>
-          <h2 className="card-heading">Sign Up</h2>
+      <Grid>
+        <Row>
+          <Col xs={10} xsOffset={1} md={8} mdOffset={2} className="custom-border">
+            <form onSubmit={this.props.onSubmit}>
+              <h3 className="text-center">Sign Up</h3>
 
-          {this.props.errors.summary && <p className="error-message">{this.props.errors.summary}</p>}
+              <Row>
+                <Col xs={12} md={6} mdOffset={3}>
+                  <FormGroup validationState={nameErrorMSG ? "error" : null} className="margin-0">
+                    <ControlLabel>Name</ControlLabel>
+                    <FormControl type="text" name="name" onChange={this.props.onChange} value={this.props.user.name}/>
+                    <HelpBlock>{nameErrorMSG}</HelpBlock>
+                    <FormControl.Feedback />
+                  </FormGroup>
 
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Name"
-              name="name"
-              errorText={this.props.errors.name}
-              onChange={this.props.onChange}
-              value={this.props.user.name}
-            />
-          </div>
+                  <FormGroup validationState={emailErrorMSG ? "error" : null} className="margin-0">
+                    <ControlLabel>Email</ControlLabel>
+                    <FormControl type="text" name="email" onChange={this.props.onChange} value={this.props.user.email}/>
+                    <HelpBlock>{emailErrorMSG}</HelpBlock>
+                    <FormControl.Feedback />
+                  </FormGroup>
 
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Email"
-              name="email"
-              errorText={this.props.errors.email}
-              onChange={this.props.onChange}
-              value={this.props.user.email}
-            />
-          </div>
+                  <FormGroup validationState={passwordErrorMSG ? "error" : null} className="margin-0">
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl type="password" name="password" onChange={this.props.onChange} value={this.props.user.password}/>
+                    <HelpBlock>{passwordErrorMSG}</HelpBlock>
+                    <FormControl.Feedback />
+                  </FormGroup>
 
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Password"
-              type="password"
-              name="password"
-              onChange={this.props.onChange}
-              errorText={this.props.errors.password}
-              value={this.props.user.password}
-            />
-          </div>
+                  <ButtonToolbar>
+                    <Button bsStyle="info" className="custom-info-btn" type="submit">Sign Up</Button>
+                  </ButtonToolbar>
 
-          <div className="button-line">
-            <RaisedButton type="submit" label="Create New Account" primary />
-          </div>
-
-          <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-        </form>
-      </Card>
+                  <div className="text-center padding-15-0">
+                    <span>Already have an account? <Link to={'/login'}>Log in</Link>.</span>
+                  </div>
+                </Col>
+              </Row>
+            </form>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
-
-SignUpForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
-};
