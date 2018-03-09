@@ -1,24 +1,17 @@
 import React from 'react';
-import Auth from '../modules/Auth';
+import { connect } from 'react-redux';
+
+import * as AuthActions from '../store/auth/actions';
+import * as AuthSelectors from '../store/auth/selectors';
+
 import LoginForm from '../components/LoginForm.jsx';
-import { browserHistory } from 'react-router';
 
 
-export default class LoginPage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
-
+class LoginPage extends React.Component {
+  constructor(props) {
+    super(props);
+  
     this.state = {
-      errors: {},
-      successMessage,
       user: {
         email: '',
         password: '',
@@ -31,30 +24,7 @@ export default class LoginPage extends React.Component {
   
   processForm(event) {
     event.preventDefault();
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
-    const formData = `email=${email}&password=${password}`;
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({
-          errors: {},
-        });
-        Auth.authenticateUser(xhr.response.token);
-        browserHistory.push('/profile');
-      } else {
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors,
-        });
-      }
-    });
-    xhr.send(formData);
+    this.props.logIn(this.state.user);
   }
 
   changeUser(event) {
@@ -72,11 +42,29 @@ export default class LoginPage extends React.Component {
       <LoginForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
-        errors={this.state.errors}
-        successMessage={this.state.successMessage}
+        errors={this.props.errors}
         user={this.state.user}
       />
     );
   }
-
 }
+
+
+function mapStateToProps(state) {
+  return {
+    errors: AuthSelectors.getErrors(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logIn: (userData) => {
+      dispatch(AuthActions.logIn(userData));
+    },
+    removeErrors: () => {
+      dispatch(AuthActions.removeErrors());
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -7,7 +7,7 @@
   "scripts": {
     "start:nodemoon": "nodemon --use-strict index.js",
     "start:node": "node index.js",
-    "bundle": "webpack --watch",
+    "start": "webpack --watch",
     "eslint:fix": "eslint -c .eslintrc.json ./"
   },
   "repository": {
@@ -15,10 +15,13 @@
     "url": "https://github.com/Arman-Zohrabyan/ReactJS-NodeJS-Express-JWT-authorization.git"
   },
   "dependencies": {
+    "babel-eslint": "^8.2.2",
     "bcrypt": "^1.0.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.2.1",
+    "lodash": "^4.17.5",
+    "moment": "^2.21.0",
     "mongodb": "^3.0.0-rc0",
     "mongoose": "^4.10.8",
     "passport": "^0.3.2",
@@ -28,6 +31,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^3.0.0",
+    "react-toastify": "^3.3.5",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "validator": "^6.2.0"

@@ -3,10 +3,6 @@ import { Link } from 'react-router';
 import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, ButtonToolbar, Button } from 'react-bootstrap';
 
 export default class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {email: emailErrorMSG, password: passwordErrorMSG} = this.props.errors;
 

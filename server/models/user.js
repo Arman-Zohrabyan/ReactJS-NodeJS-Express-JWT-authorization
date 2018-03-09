@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const bcrypt = require('bcrypt');
 
 // define the User model schema
@@ -8,7 +9,11 @@ const UserSchema = new mongoose.Schema({
     index: { unique: true }
   },
   password: String,
-  name: String
+  name: String,
+  createdAt: {
+    type: String,
+    default: moment().format("DD-MM-YYYY H:m:s"),
+  },
 });
 
 

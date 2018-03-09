@@ -1,5 +1,5 @@
+import auth from './auth/reducer';
 // import exceptions from './exceptions/reducer';
-// import auth from './auth/reducer';
 // import categories from './categories/reducer';
 // import companyCategories from './companyCategories/reducer';
 // import companies from './companies/reducer';
@@ -15,8 +15,8 @@
 // import articles from './articles/reducer'
 
 export {
+  auth,
   // exceptions,
-  // auth,
   // categories,
   // companyCategories,
   // companies,

@@ -1,9 +1,16 @@
 import React, { Fragment } from 'react';
 import { IndexLink, browserHistory } from 'react-router';
-import Auth from '../modules/Auth';
 import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
-export default class Layout extends React.Component {
+import * as AuthActions from '../store/auth/actions';
+import * as AuthSelectors from '../store/auth/selectors';
+
+
+import Auth from '../modules/Auth';
+
+class Layout extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -13,9 +20,26 @@ export default class Layout extends React.Component {
     browserHistory.push(link);
   }
 
+  showNotify(options) {
+    toast(options.content, {
+      closeButton: false,
+      hideProgressBar: true,
+      autoClose: 4000,
+      type: options.type,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.notify.isVisible) {
+      this.showNotify(nextProps.notify);
+      this.props.removeNotify();
+    }
+  }
+
   render() {
     return(
       <Fragment>
+        <ToastContainer className="text-center" newestOnTop="true" />
         <Navbar collapseOnSelect className="cusomize-navbar">
           <Navbar.Header>
             <Navbar.Brand>
@@ -44,3 +68,20 @@ export default class Layout extends React.Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    notify: AuthSelectors.notify(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    removeNotify: () => {
+      dispatch(AuthActions.removeNotify());
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
