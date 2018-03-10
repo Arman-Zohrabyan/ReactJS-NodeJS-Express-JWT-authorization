@@ -21,7 +21,11 @@ class LoginPage extends React.Component {
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
-  
+
+  componentWillUnmount() {
+    this.props.removeErrors();
+  }
+
   processForm(event) {
     event.preventDefault();
     this.props.logIn(this.state.user);

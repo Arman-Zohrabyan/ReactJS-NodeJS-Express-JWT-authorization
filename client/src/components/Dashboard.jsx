@@ -1,8 +1,12 @@
 import React from 'react';
 import { Nav, NavItem } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-export default class Dashboard extends React.Component {
+import * as ProfileActions from '../store/profile/actions';
+import * as ProfileSelectors from '../store/profile/selectors';
+
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -11,6 +15,12 @@ export default class Dashboard extends React.Component {
     };
 
     this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  componentDidMount() {
+    if(!this.props.userProfile._id) {
+      console.log("Chaka");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,3 +62,18 @@ export default class Dashboard extends React.Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    userProfile: ProfileSelectors.user(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -1,5 +1,5 @@
-export function getErrors(state) {
-  return state.auth.errors;
+export function user(state) {
+  return state.profile;
 }
 
 export function notify(state) {

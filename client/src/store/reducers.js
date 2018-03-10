@@ -1,5 +1,5 @@
 import auth from './auth/reducer';
-// import exceptions from './exceptions/reducer';
+import profile from './profile/reducer';
 // import categories from './categories/reducer';
 // import companyCategories from './companyCategories/reducer';
 // import companies from './companies/reducer';
@@ -16,7 +16,7 @@ import auth from './auth/reducer';
 
 export {
   auth,
-  // exceptions,
+  profile,
   // categories,
   // companyCategories,
   // companies,

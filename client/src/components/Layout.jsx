@@ -7,8 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as AuthActions from '../store/auth/actions';
 import * as AuthSelectors from '../store/auth/selectors';
 
-
 import Auth from '../modules/Auth';
+
+
 
 class Layout extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Layout extends React.Component {
 
   redirect(link, event) {
     event.preventDefault();
+    this.navBar.refs.inner.handleCollapse();
     browserHistory.push(link);
   }
 
@@ -39,8 +41,8 @@ class Layout extends React.Component {
   render() {
     return(
       <Fragment>
-        <ToastContainer className="text-center" newestOnTop="true" />
-        <Navbar collapseOnSelect className="cusomize-navbar">
+        <ToastContainer className="text-center" newestOnTop={true} />
+        <Navbar collapseOnSelect={true} className="cusomize-navbar" ref={navBar => {this.navBar = navBar;}}>
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to="/">Arman</IndexLink>
@@ -51,11 +53,11 @@ class Layout extends React.Component {
             <Nav activekey={1} pullRight>
               {
                 Auth.isUserAuthenticated() ? (
-                  <NavItem eventkey={1} href="#" onClick={this.redirect.bind(this, '/logout')} className="navbar-link">Log out</NavItem>
+                  <NavItem eventkey={1} href="#" onClick={this.redirect.bind(this, '/logout')} className="navbar-link">Log Out</NavItem>
                 ) : (
                   <Fragment>
-                    <NavItem eventkey={1} href="#" onClick={this.redirect.bind(this, '/login')} className="navbar-link">Log in</NavItem>
-                    <NavItem eventkey={2} href="#" onClick={this.redirect.bind(this, '/signup')} className="navbar-link">Sign up</NavItem>
+                    <NavItem eventkey={1} href="#" onClick={this.redirect.bind(this, '/login')} className="navbar-link">Log In</NavItem>
+                    <NavItem eventkey={2} href="#" onClick={this.redirect.bind(this, '/signup')} className="navbar-link">Sign Up</NavItem>
                   </Fragment>
                 )
               }

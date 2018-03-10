@@ -1,7 +1,6 @@
 import { types } from './actions';
 
 const initialState = {
-  user: {},
   notify: {},
   errors: {},
   message: "",

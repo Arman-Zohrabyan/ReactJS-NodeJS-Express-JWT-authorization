@@ -8,22 +8,6 @@ export const types = {
   SET_RESPONSE: 'Auth.SET_RESPONSE',
 };
 
-export function logIn(data) {
-  return async (dispatch) => {
-    let response = await Api.post('/auth/login', data);
-
-    if(response.success) {
-      Auth.authenticateUser(response.token);
-      browserHistory.push('/profile');
-    }
-
-    dispatch({
-      type: types.SET_RESPONSE,
-      res: response,
-    });
-  };
-}
-
 export function register(data) {
   return async (dispatch) => {
     let response = await Api.post('/auth/signup', data);
@@ -42,11 +26,5 @@ export function register(data) {
 export function removeErrors() {
   return {
     type: types.REMOVE_ERRORS,
-  };
-}
-
-export function removeNotify() {
-  return {
-    type: types.REMOVE_NOTIFY,
   };
 }

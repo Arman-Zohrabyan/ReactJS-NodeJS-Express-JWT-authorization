@@ -124,7 +124,7 @@ router.post('/login', (req, res, next) => {
   }
 
 
-  return passport.authenticate('local-login', (err, token, userData) => {
+  return passport.authenticate('local-login', (err, token) => {
     if (err) {
       if (err.name === 'IncorrectCredentialsError') {
         return res.status(400).json({
@@ -144,7 +144,6 @@ router.post('/login', (req, res, next) => {
       success: true,
       message: 'You have successfully logged in!',
       token,
-      user: userData
     });
   })(req, res, next);
 });
