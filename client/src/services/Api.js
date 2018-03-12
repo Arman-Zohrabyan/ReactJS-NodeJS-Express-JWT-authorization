@@ -6,7 +6,7 @@ const API_ENDPOINT = config.API_ENDPOINT;
 
 class ApiService {
 
-  async get(resource, params = new Map(), withResponse = false) {
+  async get(resource, params = {}, withResponse = false) {
     let options = {
       method: 'GET',
       headers: {
@@ -19,17 +19,12 @@ class ApiService {
     let url = API_ENDPOINT + resource + '?' + this.serializeParams(params);
 
     let [response, data] = await this.request(url, options);
-    if (!response.ok) {
-      return exception.throwFromResponse(data);
-    }
-    return withResponse ? [response, data.data] : data.data;
+
+    return withResponse ? [response, data] : data;
   }
 
-  async post(resource, params, withResponse = false) {
+  async post(resource, params = {}, withResponse = false) {
     let body = JSON.stringify(params);
-    // params.forEach((value, key) => {
-    //   formData.append(key, value);
-    // });
 
     let options = {
       method: 'POST',
@@ -70,7 +65,7 @@ class ApiService {
     return withResponse ? [response, data.data] : data.data;
   }
 
-  async put(resource, params = new Map(), withResponse = false) {
+  async put(resource, params = {}, withResponse = false) {
     let options = {
       method: 'PUT',
       headers: {
@@ -84,10 +79,8 @@ class ApiService {
     let url = API_ENDPOINT + resource;
 
     let [response, data] = await this.request(url, options);
-    if (!response.ok) {
-      return exception.throwFromResponse(data);
-    }
-    return withResponse ? [response, data.data] : data.data;
+
+    return withResponse ? [response, data] : data;
   }
 
   async delete(resource, params = new Map(), withResponse = false) {
@@ -110,13 +103,9 @@ class ApiService {
     return withResponse ? [response, data.data] : data.data;
   }
 
-  async request(url, options, accessToken) {
-    if (accessToken) {
-      options.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-    else if (Auth.isUserAuthenticated()) {
-      const getAccessToken = await auth.getAccessToken();
-      options.headers['Authorization'] = `Bearer ${getAccessToken.value}`;
+  async request(url, options) {
+    if (Auth.isUserAuthenticated()) {
+      options.headers['authorization'] = `Bearer ${Auth.getToken()}`;
     }
 
     let response = await fetch(url, options);
@@ -134,8 +123,8 @@ class ApiService {
   serializeParams(params) {
     let array = [];
 
-    params.forEach((value, key) => {
-      array.push(key + '=' + encodeURIComponent(value));
+    Object.keys(params).forEach(key => {
+      array.push(key + '=' + encodeURIComponent(params[key]));
     });
 
     return array.join('&');

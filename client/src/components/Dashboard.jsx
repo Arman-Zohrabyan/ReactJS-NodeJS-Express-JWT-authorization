@@ -18,9 +18,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.userProfile._id) {
-      console.log("Chaka");
-    }
+    this.props.getUserData();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,10 +46,13 @@ class Dashboard extends React.Component {
             Friends
           </NavItem>
           <NavItem eventKey="/users" onClick={this.redirect.bind(this, '/users')}>
-            All Users
+            Users
           </NavItem>
           <NavItem eventKey="/tape" onClick={this.redirect.bind(this, '/tape')}>
             Tape
+          </NavItem>
+          <NavItem eventKey="/edit" className="nav-right" onClick={this.redirect.bind(this, '/edit')}>
+            Edit
           </NavItem>
         </Nav>
 
@@ -66,13 +67,15 @@ class Dashboard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    userProfile: ProfileSelectors.user(state),
+    user: ProfileSelectors.user(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    getUserData: () => {
+      dispatch(ProfileActions.getCurrentUserData());
+    },
   };
 }
 

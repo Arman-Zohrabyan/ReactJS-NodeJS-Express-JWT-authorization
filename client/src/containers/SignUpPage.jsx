@@ -56,7 +56,6 @@ class SignUpPage extends React.Component {
   }
 }
 
-
 function mapStateToProps(state) {
   return {
     errors: AuthSelectors.getErrors(state),

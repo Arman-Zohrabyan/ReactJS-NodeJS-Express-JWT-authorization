@@ -3,17 +3,17 @@ import Api from '../../services/Api';
 import Auth from '../../modules/Auth';
 
 export const types = {
-  REMOVE_ERRORS: 'Auth.REMOVE_ERRORS',
-  REMOVE_NOTIFY: 'Auth.REMOVE_NOTIFY',
-  SET_RESPONSE: 'Auth.SET_RESPONSE',
+  SET_RESPONSE: 'Profile.SET_RESPONSE',
+  SUCCESS_EDITED: 'Profile.SUCCESS_EDITED',
 };
 
-export function register(data) {
+export function getCurrentUserData() {
   return async (dispatch) => {
-    let response = await Api.post('/auth/signup', data);
+    let response = await Api.get('/api/getUserData');
 
-    if(response.success) {
-      browserHistory.push('/login');
+    if(!response.success) {
+      Auth.deauthenticateUser();
+      browserHistory.push('/');
     }
 
     dispatch({
@@ -23,8 +23,14 @@ export function register(data) {
   };
 }
 
-export function removeErrors() {
-  return {
-    type: types.REMOVE_ERRORS,
+export function editUserData(values) {
+  return async (dispatch) => {
+    let response = await Api.put('/api/editUserData', values);
+
+    dispatch({
+      type: types.SUCCESS_EDITED,
+      res: values,
+    });
+
   };
 }

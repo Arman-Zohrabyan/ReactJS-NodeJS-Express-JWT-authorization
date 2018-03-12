@@ -12,6 +12,7 @@ import ProfilePage from './containers/ProfilePage.jsx';
 import FriendsPage from './containers/FriendsPage.jsx';
 import UsersPage from './containers/UsersPage.jsx';
 import TapePage from './containers/TapePage.jsx';
+import EditPage from './containers/EditPage.jsx';
 
 import Auth from './modules/Auth';
 
@@ -56,6 +57,7 @@ export default (
         <Route path="/friends" onEnter={requireAuth} component={FriendsPage} />
         <Route path="/users" onEnter={requireAuth} component={UsersPage} />
         <Route path="/tape" onEnter={requireAuth} component={TapePage} />
+        <Route path="/edit" onEnter={requireAuth} component={EditPage} />
       </Route>
 
     </Route>

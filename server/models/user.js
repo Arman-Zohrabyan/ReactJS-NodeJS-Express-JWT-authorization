@@ -10,10 +10,18 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   name: String,
+  surname: String,
   createdAt: {
     type: String,
-    default: moment().format("DD-MM-YYYY H:m:s"),
+    default: moment().format("DD-MM-YYYY HH:mm:ss"),
   },
+  year: Number,
+  month: String,
+  day: Number,
+  gender: String,
+  address: String,
+  profession: String,
+  marital_status: String,
 });
 
 
