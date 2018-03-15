@@ -1,7 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 const User = require('mongoose').model('User');
 const config = require('../../config');
+const PathHelper = require('../pathHelper.js');
+
 
 const router = new express.Router();
 
@@ -30,6 +34,7 @@ router.get('/getUserData', (req, res) => {
           gender: user.gender,
           address: user.address,
           profession: user.profession,
+          profileImages: user.profileImages,
           marital_status: user.marital_status,
         },
         success: true
@@ -49,6 +54,44 @@ router.put('/editUserData', (req, res) => {
       if (err) return handleError(err);
       res.status(200).json({
         success: true
+      });
+    });
+  });
+});
+
+
+
+const imageFormats = ['.jpg', '.jpeg', '.gif', '.png'];
+
+router.post('/changeProfileImage', (req, res) => {
+  const file = req.files.image;
+  const fileExt = path.extname(file.name);
+  const userId = req.body.id;
+  const userDir = PathHelper.userImageFolder(userId);
+
+  // check if directory is exists
+  if(!fs.lstatSync(userDir).isDirectory()) {
+    fs.mkdirSync(userDir);
+  }
+
+
+  // check image extention
+  if (imageFormats.includes(fileExt.toLowerCase())) {
+    const targetPath = path.resolve(`${userDir}/${file.name}`);
+    fs.rename(file.path, targetPath, (err) => { if (err) throw err; });
+  } else {
+    fs.unlink(file.path, function (err) { if (err) throw err; });
+  }
+
+  // change user.profileImage path
+  User.findById(userId, (userErr, user) => {
+    const profileImageURL = PathHelper.userProfileImage(userId, file.name);
+    user.set({profileImage: profileImageURL});
+    user.save(function (err) {
+      if (err) return handleError(err);
+      res.status(200).json({
+        success: true,
+        profileImage: profileImageURL,
       });
     });
   });

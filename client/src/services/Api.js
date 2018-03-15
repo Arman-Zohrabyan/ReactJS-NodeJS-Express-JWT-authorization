@@ -41,17 +41,15 @@ class ApiService {
     return withResponse ? [response, data] : data;
   }
 
-  async postFiles(resource, params = new Map(), withResponse = false) {
+  async postFiles(resource, params, withResponse = false) {
     let formData = new FormData();
-    params.forEach((value, key) => {
-      formData.append(key, value);
+    Object.keys(params).forEach( key => {
+      formData.append(key, params[key]);
     });
 
     let options = {
       method: 'POST',
       headers: {
-        'Client': 'true',
-        'Accept': 'application/json',
       },
       body: formData,
     };
@@ -59,10 +57,8 @@ class ApiService {
     let url = API_ENDPOINT + resource;
 
     let [response, data] = await this.request(url, options);
-    if (!response.ok) {
-      return exception.throwFromResponse(data);
-    }
-    return withResponse ? [response, data.data] : data.data;
+
+    return withResponse ? [response, data] : data;
   }
 
   async put(resource, params = {}, withResponse = false) {

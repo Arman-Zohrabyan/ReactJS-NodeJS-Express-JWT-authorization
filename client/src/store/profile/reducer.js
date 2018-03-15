@@ -5,10 +5,12 @@ const initialState = {
   email: '',
   name: '',
   createdAt: '',
+  profileImages: [],
 };
 
 function setResponse(state, response) {
-  return Object.assign({}, state, response.user);
+  const changedData = response.user || response;
+  return Object.assign({}, state, changedData);
 }
 
 function successEdited(state, response) {
@@ -20,6 +22,9 @@ export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
 
   case types.SET_RESPONSE:
+    return setResponse(state, action.res);
+
+  case types.SET_NEW_PROFILE_IMAGE:
     return setResponse(state, action.res);
 
   case types.SUCCESS_EDITED:

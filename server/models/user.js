@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
   address: String,
   profession: String,
   marital_status: String,
+  profileImages: {
+    type: Array,
+    default: ["/images/user.jpg"],
+  },
 });
 
 
