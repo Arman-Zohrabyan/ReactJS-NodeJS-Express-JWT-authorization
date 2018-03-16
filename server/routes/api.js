@@ -5,6 +5,7 @@ const path = require('path');
 const User = require('mongoose').model('User');
 const config = require('../../config');
 const PathHelper = require('../pathHelper.js');
+const FsHelper = require('../helpers/fsHelper.js');
 
 
 const router = new express.Router();
@@ -70,10 +71,7 @@ router.post('/changeProfileImage', (req, res) => {
   const userDir = PathHelper.userImageFolder(userId);
 
   // check if directory is exists
-  if(!fs.lstatSync(userDir).isDirectory()) {
-    fs.mkdirSync(userDir);
-  }
-
+  FsHelper.checkAndCreateDirSync(userDir);
 
   // check image extention
   if (imageFormats.includes(fileExt.toLowerCase())) {
@@ -86,12 +84,12 @@ router.post('/changeProfileImage', (req, res) => {
   // change user.profileImage path
   User.findById(userId, (userErr, user) => {
     const profileImageURL = PathHelper.userProfileImage(userId, file.name);
-    user.set({profileImage: profileImageURL});
+    user.profileImages.push(profileImageURL);
     user.save(function (err) {
       if (err) return handleError(err);
       res.status(200).json({
         success: true,
-        profileImage: profileImageURL,
+        profileImages: user.profileImages,
       });
     });
   });

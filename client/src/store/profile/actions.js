@@ -44,7 +44,7 @@ export function editUserData(values) {
 
 
 
-export function setProfileImage(e) {
+export function addProfileImage(e) {
   return async (dispatch, getState) => {
     const userId = ProfileSelectors.userId(getState());
     const file = e.target.files[0];

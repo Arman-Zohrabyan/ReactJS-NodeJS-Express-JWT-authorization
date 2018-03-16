@@ -3,7 +3,6 @@ body, html {
   margin: 0;
 }
 
-
 .cusomize-navbar.navbar {
   background: white;
   box-shadow: none;
@@ -89,19 +88,20 @@ body, html {
   cursor: pointer;
 }
 
-.img-container {
+.relative {
   position: relative;
 }
 
-.img-container .fa-block {
+.relative .fa-block {
   display: none;
   position: absolute;
-  right: 5px;
-  top: 4px;
+  right: 25px;
+  top: 5px;
 }
 
-.img-container:hover .fa-block {
+.relative:hover .fa-block {
   display: block;
+  z-index: 10;
 }
 
 .fa-block .fa {
@@ -116,6 +116,10 @@ body, html {
 .thumbnail:hover {
   border-color: #337ab7;
   cursor: pointer;
+}
+
+.carousel .carousel-control {
+  background-image: none;
 }
 
 

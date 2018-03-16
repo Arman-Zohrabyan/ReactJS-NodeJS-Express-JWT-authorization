@@ -50,9 +50,13 @@ class ProfilePage extends React.Component {
 
     return (
       <Grid fluid={true}>
-        <input type="file" id="edit" name="files" className="hidden" onChange={this.props.setProfileImage} />
+        <input type="file" id="add" name="files" className="hidden" onChange={this.props.addProfileImage} />
         <Row>
-          <Col xs={12} md={4}>
+          <Col className="relative" xs={12} md={4}>
+            <div className="fa-block">
+              <label htmlFor="add"><i className="fa fa-plus middleSize" title="plus"></i></label>
+              <i className="fa fa-remove middleSize" title="delete"></i>
+            </div>
             <Carousel
               activeIndex={index}
               direction={direction}
@@ -61,36 +65,11 @@ class ProfilePage extends React.Component {
               {
                 user.profileImages.map((img, key) =>
                   <Carousel.Item key={key}>
-                    <img width={900} height={500} alt="900x500" src={`${API_ENDPOINT}${img}`} />
+                    <img src={`${API_ENDPOINT}${img}`} />
                   </Carousel.Item>
                 )
               }
             </Carousel>
-            {/*              <Carousel.Item>
-                <img width={900} height={500} alt="900x500" src="/carousel.png" />
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img width={900} height={500} alt="900x500" src="/carousel.png" />
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                  </p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            */}
-            {/*       <Thumbnail className="img-container" alt="img" src={`${API_ENDPOINT}${user.profileImages[0]}`}>
-              <div className="fa-block">
-                <label htmlFor="edit"><i className="fa fa-edit middleSize" title="edit"></i></label>
-                <i className="fa fa-plus middleSize" title="add"></i>
-                <i className="fa fa-remove middleSize" title="delete"></i>
-              </div>
-            </Thumbnail>*/}
-
           </Col>
           <Col xs={12} md={8}>
             <h1>{`${user.name} ${user.surname}`}</h1>
@@ -144,8 +123,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setProfileImage: (e) => {
-      dispatch(ProfileActions.setProfileImage(e));
+    addProfileImage: (e) => {
+      dispatch(ProfileActions.addProfileImage(e));
     },
   };
 }
